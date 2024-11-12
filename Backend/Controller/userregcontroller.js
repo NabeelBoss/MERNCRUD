@@ -7,7 +7,7 @@ const {registration} = require("../Model/usereg");
 async function Alluser(req,res){
     
     const alluser =  await registration.find();
-    return res.send({"data":alluser})
+    return res.send(alluser)
 
 }
 

@@ -8,10 +8,9 @@ const Read = () => {
     const fetchUser = async () => {
         try {
             const response = await fetch("http://localhost:5000/userregistration");
-            const data = await response.json();
 
             if (response.ok) {
-                setUsers(data.users);
+                setUsers(await response.json());
                 alert("Data Coming Successfully");
             } else {
                 alert("Failed to fetch data");
@@ -37,18 +36,25 @@ const Read = () => {
                     </tr>
                 </thead>
                 <tbody>
-                {users && users.map((user, index) => (
-                            <tr key={index}>
-                                <td>{user.Name}</td>
-                                <td>{user.Email}</td>
-                                <td>{user.Pass}</td>
-                                <td>
-                                    <button className="btn btn-primary" >Update</button>
-                                    <button className="btn btn-danger">Delete</button>
-                                </td>
-                            </tr>
-                        ))
-                    }
+                    {users && users.length > 0 ? (
+                        users.map((user, index) => {
+                            return (
+                                <tr key={index}>
+                                    <td>{user.Name}</td>   {/* Adjust according to the actual property names */}
+                                    <td>{user.Email}</td>
+                                    <td>{user.Pass}</td>
+                                    <td>
+                                        <button className="btn btn-primary">Update</button>
+                                        <button className="btn btn-danger">Delete</button>
+                                    </td>
+                                </tr>
+                            );
+                        })
+                    ) : (
+                        <tr>
+                            <td colSpan="4">No users found</td>
+                        </tr>
+                    )}
                 </tbody>
             </table>
         </div>
