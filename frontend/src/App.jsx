@@ -13,7 +13,7 @@ const App = () => {
         <Routes>
             <Route path="/" element={<Form/>}/>
             <Route path="/read" element={<Read/>}/>
-            <Route path="/update" element={<Update/>}/>
+            <Route path="/userregistration/:id" element={<Update/>}/>
             <Route path="*" element={<Error />} />
         </Routes>
     </BrowserRouter>

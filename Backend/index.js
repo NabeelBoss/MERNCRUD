@@ -8,9 +8,11 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}))
 
 const {DbConnection} = require("./Config/db");
-const {Alluser,Createuser} = require("./Controller/userregcontroller");
+const {Alluser,Createuser,deleteUser,updateUser} = require("./Controller/userregcontroller");
 
 app.route('/userregistration').get(Alluser).post(Createuser);
+
+app.route('/userregistration/:id').delete(deleteUser).put(updateUser);
 
 
 app.listen(process.env.PORT,function(){

@@ -1,5 +1,6 @@
 import React from 'react'
-import { useEffect, useState } from 'react';
+import { useEffect, useState} from 'react';
+import {Link} from 'react-router-dom'
 
 const Read = () => {
 
@@ -11,7 +12,6 @@ const Read = () => {
 
             if (response.ok) {
                 setUsers(await response.json());
-                alert("Data Coming Successfully");
             } else {
                 alert("Failed to fetch data");
             }
@@ -23,6 +23,17 @@ const Read = () => {
     useEffect(() => {
         fetchUser();
     }, []);
+
+    const deleteUser = async (id) => {
+        try {
+          await fetch(`http://localhost:5000/userregistration/${id}`, {
+            method: "DELETE",
+          });
+          window.location.reload();
+        } catch (error) {
+          console.log(error);
+        }
+      };
 
     return (
         <div className="container">
@@ -40,12 +51,12 @@ const Read = () => {
                         users.map((user, index) => {
                             return (
                                 <tr key={index}>
-                                    <td>{user.Name}</td>   {/* Adjust according to the actual property names */}
+                                    <td>{user.Name}</td>
                                     <td>{user.Email}</td>
                                     <td>{user.Pass}</td>
                                     <td>
-                                        <button className="btn btn-primary">Update</button>
-                                        <button className="btn btn-danger">Delete</button>
+                                        <Link className="btn btn-primary" to={`/userregistration/${user._id}`}>Update</Link>
+                                        <Link className="btn btn-danger" onClick={() => deleteUser(user._id)}>Delete</Link>
                                     </td>
                                 </tr>
                             );

@@ -23,8 +23,11 @@ const Form = () => {
             body: JSON.stringify(newuser)
         });
 
-        if(Response.ok){
+        if (Response.ok) {
             alert("Data Added Successfully");
+            window.location.href = '/read';
+        } else {
+            alert("Failed to submit data.");
         }
 
     }
